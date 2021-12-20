@@ -1,0 +1,32 @@
+{% load django_htmx %}
+{% django_htmx_script %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>god</h1>
+<div 
+style="height: 100vh;" 
+id="landing_page">
+<div >
+    <h1 style="font-size:50px;"> HTMX/Django: To do App </h1> 
+    <p> Keep track of what needs to be done! </p>
+    <!-- we changed this button -->
+    <button
+        role="button" 
+        hx-get="{% url 'view' %}"
+        hx-trigger="click"
+        hx-target="#landing_page"
+        hx-swap="outerHTML"
+        hx-push-url="">
+        Start Your List 
+        </button> 
+</div>
+<script src="https://unpkg.com/htmx.org@1.6.1"></script>
+</body>
+</html>

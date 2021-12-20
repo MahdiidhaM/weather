@@ -1,0 +1,156 @@
+.start {
+    display: flex;
+    justify-content: start;
+}
+
+
+.end{
+    display: flex;
+    justify-content: end;
+}
+
+.card{
+    overflow: hidden;
+    position: relative;
+    height: 340px;
+    border-radius: 14px;
+    border: solid 1px black;
+}
+
+.card-img-top{
+    width: 20%;
+    position: absolute;
+    right: 39%;
+}
+
+.card-body {
+    height: 215px;
+    position: absolute; 
+    top: 26%;
+}
+
+.pad > div {
+    margin-left: 0px;
+
+}
+
+.imagestyle {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    transition: transform 2s;
+    position: relative;
+}
+
+
+
+.card:hover .imagestyle {
+    transform: scale(1.5);
+}
+
+
+.choices {
+    border: none;
+    background-color: #f8f9fa;
+}
+
+.text{
+    padding: 0px 7px;
+    background-color: #c5c6ff75;
+    border-radius: 13px;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.login {
+    visibility: hidden;
+    border: 1px solid;
+    padding: 8px;
+    background-color: #83ffdc;
+    /* transform: translateX(-50%); */
+    border-radius: 7px;
+    position: fixed;
+    top: 27%;
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+.signup {
+    visibility: hidden;
+    border: 1px solid;
+    padding: 8px;
+    background-color: #83ffdc;
+    /* transform: translateX(-50%); */
+    border-radius: 7px;
+    position: fixed;
+    top: 10%;
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+.signup.act{
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 2s
+}
+
+.login.act{
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 2s
+}
+
+.hidden {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 2s;
+    position: fixed;
+    top: 0;
+    z-index: -1;
+    
+}
+
+.hidden.act {
+    height: 100%;
+    width: 100%;
+    background-color: #00000091;
+    position: fixed;
+    transition: background-color 2s;
+    top:0;
+    z-index: 0;
+}
+
+.dark.act > div{
+    z-index: -1;
+}
+
+.background {
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+}
+
+#mychart {
+    background-color: #000000b0;
+    border-radius: 14px;
+    padding: 12px;
+}
+
+.nav-link{
+    cursor: pointer;
+}
+
+.address {
+    font-size: 27px;
+    font-weight: 400;
+    background-color: #60ead675;
+    padding: 7px;
+    border-radius: 11px;
+}
