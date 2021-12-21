@@ -19,12 +19,14 @@ from .forms import SignupForm,BlogFormset,SetFormset,Tempformset
 UNIT_GROUP="us"
 def weather(request):
     signup = SignupForm()
-    if 'username' and 'last_name' and 'first_name' and 'email' and 'password1' and 'password2' in request.POST:
+    # Sign-up Form
+    if 'username' and 'last_name' and 'first_name' and 'email' and 'password1' and 'password2' in request.POST:  
         sign = SignupForm(request.POST)
         if sign.is_valid():
             sign.save()
         else:
             signup = SignupForm()
+    # Login Form
     if 'username' and 'password' in request.POST:
         form = authenticate(request,username=request.POST['username'],password=request.POST['password'])
         if form is not None:
@@ -32,27 +34,30 @@ def weather(request):
             redirect('/')
 
     API_KEY="9a7dd8460faa9ecfc79e18f6ce597a78"
+    # Select temprature type
     if 'temp' in request.POST:
-        
         global UNIT_GROUP
         UNIT_GROUP = request.POST['temp']
+        # Select city
     if 'city' in request.POST:
         city = request.POST['city']
-        total = []
         response = requests.get(f"http://api.openweathermap.org/data/2.5/forecast?q={city}&units={UNIT_GROUP}&id=524901&appid={API_KEY}" )
         informations = json.loads(response.text)
-        total = []
-        name_city = informations['city']['name']
-        name_country = informations['city']['country']
+        city_name = informations['city']['name']
+        country_name = informations['city']['country']
         informations = json.loads(response.text)
+       
+        # Add all informations API  
+        total = []
         for i in informations['list']:
             p = str(i['dt_txt']).split(' ')
             convert_date = jalali.Gregorian(p[0]).persian_string()
             spl = convert_date.split('-')
             converted_data = '/'.join(spl)
             total.extend([[i['main']['temp'],i['main']['temp_max'],i['main']['temp_min'],i['weather'][0]['description'],spl[-1],i['weather'][0]['icon'],converted_data]])
+        
         context = {
-            'address':name_country + ' ' + name_city.capitalize(),
+            'address':country_name + ' ' + city_name.capitalize(),
             'description1':total[0][3],
             'icon1':total[0][-2],
             'date1':total[0][-1],
@@ -113,6 +118,8 @@ def weather(request):
 
 
 
+
+# Celery
 class UsersListView(ListView):
     template_name = 'user_list.html'
     model = User
