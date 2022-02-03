@@ -16,7 +16,7 @@ from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login,logout
 from .forms import SignupForm,BlogFormset,SetFormset,Tempformset
 
-UNIT_GROUP="us"
+UNIT_GROUP="imperial"
 def weather(request):
     signup = SignupForm()
     # Sign-up Form
@@ -46,16 +46,23 @@ def weather(request):
         city_name = informations['city']['name']
         country_name = informations['city']['country']
         informations = json.loads(response.text)
-       
         # Add all informations API  
         total = []
-        for i in informations['list']:
+        seb = []
+        for index,i in enumerate(informations['list']):
+            #becouse exist repetitive days in API data , this part of the code rejects it ;
+            try:
+                if i['dt_txt'][9] != informations['list'][index-1]['dt_txt'][9]:
+                    seb.append(i)
+            except:
+                pass
+        for i in seb:
             p = str(i['dt_txt']).split(' ')
             convert_date = jalali.Gregorian(p[0]).persian_string()
             spl = convert_date.split('-')
             converted_data = '/'.join(spl)
             total.extend([[i['main']['temp'],i['main']['temp_max'],i['main']['temp_min'],i['weather'][0]['description'],spl[-1],i['weather'][0]['icon'],converted_data]])
-        
+        # print(seb)
         context = {
             'address':country_name + ' ' + city_name.capitalize(),
             'description1':total[0][3],
@@ -100,15 +107,6 @@ def weather(request):
             'tempmax6':total[5][1],
             'tempmin6':total[5][2],
             'spl6':total[5][4],
-            'description7':total[6][-2],
-            'icon7':total[6][-1],
-            'date7':total[6][0],
-            'temp7':total[6][1],
-            'tempmax7':total[6][2],
-            'tempmin7':total[6][3],
-            'sunrise7':total[6][4],
-            'sunset7':total[6][5],
-            'spl7':total[6][6],
             'UNIT_GROUP':UNIT_GROUP,
             'signupform':signup
             
