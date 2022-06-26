@@ -7,3 +7,5 @@ this is a weather and weather forcast site also this site is single page.
 
 Site technologys:
   Python , Django , JavaScript , Css , Html , Htmx(ajax) , Celery
+  
+ I created this site for learn more about javaScript
